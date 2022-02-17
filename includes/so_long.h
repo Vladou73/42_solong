@@ -21,10 +21,21 @@
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
 
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img;
+
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_img	img;
 }	t_data;
 
 typedef struct s_rect /* The x and y coordinates of the rect corresponds to its upper left corner. */
@@ -35,6 +46,7 @@ typedef struct s_rect /* The x and y coordinates of the rect corresponds to its 
 	int height;
 	int color;
 }	t_rect;
+
 
 
 //******************** LINKED LISTS ********************//
