@@ -6,7 +6,7 @@
 #    By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 17:55:57 by vnafissi          #+#    #+#              #
-#    Updated: 2022/02/14 15:57:14 by vnafissi         ###   ########.fr        #
+#    Updated: 2022/02/16 17:26:18 by vnafissi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,32 +20,34 @@
 #*********** VARIABLES ************
 
 #VARIABLE=VALUE
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Werror -Wextra -Wconversion
+MLX_FLAGS = -L ./mlx  -lmlx -Ofast -framework OpenGL -framework AppKit
+
 LIBFTDIRNAME = libft
 LIBFTNAME = libft.a
-INCS = -I ./includes -I ./libft
+INCS = -I ./includes -I ./libft -I ./mlx
 
-NAME = push_swap
-SRCS = push_swap.c ft_linked_lists.c ft_linked_lists2.c ft_operations.c \
-ft_initialization.c ft_big_algo.c ft_small_algo.c
+NAME = so_long
+SRCS = so_long.c
 OBJS=$(SRCS:.c=.o)
-
 #*********** RULES ************
 
 #old fashioned suffix rule : ‘.c.o’ (target = '.o', source = '.c')
 # is equivalent to the pattern rule ‘%.o : %.c’. which is up to date.
 %.o : %.c
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} ${INCS}
+	$(CC) ${CFLAGS} ${INCS} -c $< -o ${<:.c=.o}
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	${MAKE} -C libft
-	${CC} -g ${CFLAGS} -o ${NAME} ${OBJS} libft/libft.a ${INCS}
+	${MAKE} -C mlx
+	${CC} -g ${CFLAGS} ${MLX_FLAGS} -o ${NAME} ${OBJS} libft/libft.a ${INCS}
 
 clean:
 	${MAKE} -C ${LIBFTDIRNAME} clean
+	${MAKE} -C mlx clean
 	rm -f ${OBJS}
 
 fclean: clean
