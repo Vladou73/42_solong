@@ -18,12 +18,24 @@
 # include <stdio.h>
 # include <unistd.h>
 
-typedef struct s_stack
+# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 300
+
+typedef struct s_data
 {
-	int				n;
-	int				index;
-	struct s_stack	*next;
-}	t_stack;
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_data;
+
+typedef struct s_rect /* The x and y coordinates of the rect corresponds to its upper left corner. */
+{
+	int	x;
+	int	y;
+	int width;
+	int height;
+	int color;
+}	t_rect;
+
 
 //******************** LINKED LISTS ********************//
 

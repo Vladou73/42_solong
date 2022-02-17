@@ -43,12 +43,101 @@
 	// Uniquement 5 caractères acceptés : 0, 1, C, E, P
 
 
+
+int render_rect(t_data *data, t_rect rect)
+{
+	int	i;
+	int j;
+
+	if (data->win_ptr == NULL)
+		return (1);
+	i = rect.y;
+	printf("coucou, i=%d\n", i);
+	printf("coucou, y + height=%d\n", rect.y + rect.height);
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, rect.color);
+		++i;
+	}
+	return (0);
+}
+
+int	render(t_data *data)
+{
+	t_rect	rect;
+	
+	/* if window has been destroyed, we don't want to put the pixel ! */
+	if (data->win_ptr == NULL)
+		return (0);
+
+	rect.x = 0;
+	rect.y = 0;
+	rect.height = 100;
+	rect.width = 100;
+	rect.color = 0xFF0000;
+
+	render_rect(data, rect);
+
+	return (0);
+}
+
+void	clear_program(void *mlx_ptr, void *win_ptr) {
+
+	mlx_clear_window(mlx_ptr, win_ptr);
+	//mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
+}
+
+
+void	use_minilibx()
+{
+	t_data	data;
+
+	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
+		return ;
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+	if (data.win_ptr == NULL)
+	{
+		free(data.win_ptr);
+		return ;
+	}
+
+	/* Setup hooks */ 
+	mlx_loop_hook(data.mlx_ptr, &render, &data);
+	
+	mlx_loop(data.mlx_ptr);
+
+	//clear_program(mlx_ptr, win_ptr);
+}
+
+
+
+
+
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	//1) GNL pour lire et récupérer la map
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+	//2) Vérifications que la map soit ok
+
+	//3) Récupération des images pour notre carte avec la minilibx
+			//https://harm-smits.github.io/42docs/libs/minilibx/images.html
+			//https://aurelienbrabant.fr/blog
+
+		//A) Initialisation du programme
+		use_minilibx();
+	//4) Reproduire la map récupérée avec gnl et l'ouvrir dans une fenêtre avec la minilibx
+		//https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx
+	//5) Règles pour faire bouger le perso et rendre dynamique l'affichage de la map
+		//use event handler and hooks https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
+
+
+	//6) Gérer l'arrêt du programme, les leaks
+
+		//1st : mlx_destroy_display
+		//2nd : free
+
 }
