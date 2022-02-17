@@ -12,3 +12,5 @@ the linker searches and processes libraries and object files in the order they a
 
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 https://aurelienbrabant.fr/blog
+https://qst0.github.io/ft_libgfx/man_mlx_new_image.html
+https://www.remove.bg/

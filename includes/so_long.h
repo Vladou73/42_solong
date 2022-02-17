@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/16 15:58:05 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/17 18:09:22 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,20 @@
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
 
-typedef struct s_img
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img;
-
-
-typedef struct s_data
+typedef struct s_game
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_img	img;
-}	t_data;
+	void	*img_player;
+	void	*img_wall;
+	void	*img_background;
+	void	*img_exit;
+	void	*img_collectible;
+	
+	int		img_width;
+	int		img_height;
+	
+}	t_game;
 
 typedef struct s_rect /* The x and y coordinates of the rect corresponds to its upper left corner. */
 {
