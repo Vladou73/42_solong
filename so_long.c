@@ -86,7 +86,7 @@ int	main(void)
 
 	//3) Récupération des images pour notre carte avec la minilibx
 		//A) Initialisation du programme
-		use_minilibx();
+		//use_minilibx();
 		//B) Faire des boucles pour 
 	//4) Reproduire la map récupérée avec gnl et l'ouvrir dans une fenêtre avec la minilibx
 		//https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx

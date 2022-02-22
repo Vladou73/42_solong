@@ -21,6 +21,12 @@
 # include <ctype.h>
 # include <string.h>
 
+//buffer for get_next_line
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 100
+#endif
+
+
 // prototypes
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -31,5 +37,10 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_isint(long n);
 int		ft_atoi(const char *src);
 int		ft_isdigit(int c);
+char	*get_next_line(int fd);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dst_size);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_strchr(const char *s, int c);
 
 #endif

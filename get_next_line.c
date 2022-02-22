@@ -10,10 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "get_next_line.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+#include <fcntl.h>
 
-int search_nl(char *s)
+
+//buffer for get_next_line
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 100
+#endif
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+
+static int search_nl(char *s)
 {
 	int i = 0;
 	if (!s)
@@ -27,7 +50,7 @@ int search_nl(char *s)
 	return (0);
 }
 
-void	update_buffer(char *buffer)
+static void	update_buffer(char *buffer)
 {
 	int	i = 0;
 	int	j = search_nl(buffer);
@@ -46,7 +69,7 @@ void	update_buffer(char *buffer)
 	buffer[i] = 0;
 }
 
-char *ft_strjoin_gnl(char *s1, char *s2)
+static char *ft_strjoin_gnl(char *s1, char *s2)
 {
 	int	i = 0;
 	int j = 0;

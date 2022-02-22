@@ -26,7 +26,7 @@ NAME = libft.a
 
 SRCS = ft_bzero.c ft_calloc.c ft_strlen.c \
 ft_putstr_fd.c \
-ft_strncmp.c ft_atol.c ft_isint.c ft_atoi.c ft_isdigit.c
+ft_strncmp.c ft_atol.c ft_isint.c ft_atoi.c ft_isdigit.c get_next_line.c
 
 #${SRCS:.c=.o} means, take the variable value ${SRCS},
 # which is a string composed of words separated by spaces,

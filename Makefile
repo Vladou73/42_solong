@@ -22,19 +22,28 @@
 #VARIABLE=VALUE
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -Wconversion
-MLX_FLAGS = -L ./mlx  -lmlx -Ofast -framework OpenGL -framework AppKit
+SYSTEM = $(shell uname)
+
+#Varying flags & compilation for different systems
+ifeq (${SYSTEM}, Darwin)
+	MLX_USED = mlx_mac
+	INCS = -I ./includes -I ./libft/includes -I ./${MLX_USED}
+	MLX_FLAGS = -L ./${MLX_USED}  -lmlx -Ofast -framework OpenGL -framework AppKit
+else
+#ifeq (${SERVER}, Linux)
+	MLX_USED = mlx_linux
+	INCS = -I ./includes -I ./libft -I ./${MLX_USED}
+	MLX_FLAGS	=	-L./${MLX_USED} -lmlx -lX11 -lbsd -lXext -lm
+endif
 
 LIBFTDIRNAME = libft
 LIBFTNAME = libft.a
-INCS = -I ./includes -I ./libft -I ./mlx
 
 NAME = so_long
 SRCS = so_long.c
 OBJS=$(SRCS:.c=.o)
-#*********** RULES ************
 
-#old fashioned suffix rule : ‘.c.o’ (target = '.o', source = '.c')
-# is equivalent to the pattern rule ‘%.o : %.c’. which is up to date.
+#*********** RULES ************
 %.o : %.c
 	$(CC) ${CFLAGS} ${INCS} -c $< -o ${<:.c=.o}
 
@@ -42,12 +51,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	${MAKE} -C libft
-	${MAKE} -C mlx
+	${MAKE} -C ${MLX_USED}
 	${CC} -g ${CFLAGS} ${MLX_FLAGS} -o ${NAME} ${OBJS} libft/libft.a ${INCS}
 
 clean:
 	${MAKE} -C ${LIBFTDIRNAME} clean
-	${MAKE} -C mlx clean
+	${MAKE} -C ${MLX_USED} clean
 	rm -f ${OBJS}
 
 fclean: clean
