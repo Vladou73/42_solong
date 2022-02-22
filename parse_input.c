@@ -1,16 +1,7 @@
 
 #include "./includes/so_long.h"
-#include "./libft/libft.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 
 //Votre programme doit prendre en paramètre un fichier de carte se terminant par l’extension .ber.
-
-
 
 char	*ft_read_map(char *str_map)
 {
@@ -19,7 +10,7 @@ char	*ft_read_map(char *str_map)
 
     //1) open map & read file
     fd = open("./map.txt", O_RDONLY);
-    len_file = read(fd, str_map, 100000);
+    len_file = (int)read(fd, str_map, 100000);
 
     str_map[len_file] = 0;
 	close(fd);
@@ -114,7 +105,7 @@ int	ft_map_is_rectangle(char **map, int nb_cols)
 	i = 0;
 	while (map[i])
 	{
-		if (ft_strlen(map[i]) != nb_cols)
+		if ((int)ft_strlen(map[i]) != nb_cols)
 			return (0);
 		i++;
 	}
@@ -134,31 +125,3 @@ int	ft_map_is_ok(char **map, int nb_rows, int nb_cols)
 	return (1);
 }
 
-int	main(void)
-{
-	char    str_map[100000];
-	char    **map;
-	// char    *row;
-	int		nb_rows;
-	int		nb_cols;
-
-    //1) store map data into char **
-    map = ft_split(ft_read_map(str_map), '\n');
-    
-    nb_rows = 0;
-    while (map[nb_rows])
-	{
-		printf("%s\n", map[nb_rows]);
-		nb_rows++;
-	}
-	nb_cols = ft_strlen(map[0]);
-    
-	//2) Vérifications que la map soit ok
-	if (!ft_map_is_ok(map, nb_rows, nb_cols))
-	{
-		//Cas d'erreurs : le programme doit quitter proprement et retourner "Error\n" suivi d’un message d’erreur explicite.
-		ft_putstr_fd("Error\n",1);
-		return (0);
-	}
-	return (0);
-}

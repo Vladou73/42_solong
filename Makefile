@@ -6,16 +6,9 @@
 #    By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 17:55:57 by vnafissi          #+#    #+#              #
-#    Updated: 2022/02/16 17:26:18 by vnafissi         ###   ########.fr        #
+#    Updated: 2022/02/22 16:54:52 by vnafissi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-#$@ The filename representing the target.
-#$< The filename of the first prerequisite.
-#$? The names of all prerequisites that are newer than the target, separated by spaces.
-#$^ The filenames of all the prerequisites, separated by spaces.
-#This list has duplicate filenames removed since for most uses,
-#such as compiling, copying, etc., duplicates are not wanted.
 
 #*********** VARIABLES ************
 
@@ -25,22 +18,22 @@ CFLAGS = -Wall -Werror -Wextra -Wconversion
 SYSTEM = $(shell uname)
 
 #Varying flags & compilation for different systems
-ifeq (${SYSTEM}, Darwin)
-	MLX_USED = mlx_mac
-	INCS = -I ./includes -I ./libft/includes -I ./${MLX_USED}
-	MLX_FLAGS = -L ./${MLX_USED}  -lmlx -Ofast -framework OpenGL -framework AppKit
-else
+#ifeq (${SYSTEM}, Darwin)
+MLX_USED = mlx_mac
+INCS = -I ./includes -I ./libft/includes -I ./${MLX_USED}
+MLX_FLAGS = -L ./${MLX_USED}  -lmlx -Ofast -framework OpenGL -framework AppKit
+#else
 #ifeq (${SERVER}, Linux)
-	MLX_USED = mlx_linux
-	INCS = -I ./includes -I ./libft -I ./${MLX_USED}
-	MLX_FLAGS	=	-L./${MLX_USED} -lmlx -lX11 -lbsd -lXext -lm
-endif
+#MLX_USED = mlx_linux
+#INCS = -I ./includes -I ./libft -I ./${MLX_USED}
+#MLX_FLAGS	=	-L./${MLX_USED} -lmlx -lX11 -lbsd -lXext -lm
+#endif
 
 LIBFTDIRNAME = libft
 LIBFTNAME = libft.a
 
 NAME = so_long
-SRCS = so_long.c
+SRCS = so_long.c parse_input.c
 OBJS=$(SRCS:.c=.o)
 
 #*********** RULES ************

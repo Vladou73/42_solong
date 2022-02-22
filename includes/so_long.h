@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/17 18:09:22 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:52:19 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include "../mlx_linux/mlx.h"
 # include <stdio.h>
 # include <unistd.h>
+
+# include <sys/types.h>
+# include <sys/stat.h>
+#include <fcntl.h>
 
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
@@ -47,6 +51,8 @@ typedef struct s_rect /* The x and y coordinates of the rect corresponds to its 
 
 
 
-//******************** LINKED LISTS ********************//
+//******************** PARSING MAP FILE ********************//
+int	ft_map_is_ok(char **map, int nb_rows, int nb_cols);
+char	*ft_read_map(char *str_map);
 
 #endif
