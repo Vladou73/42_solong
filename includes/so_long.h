@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/22 16:52:19 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:46:26 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct s_game
 	
 	int		img_width;
 	int		img_height;
+
+	int		nb_rows;
+	int		nb_cols;
 	
 }	t_game;
 
