@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/23 11:56:35 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:25:24 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*ft_chose_img(t_game *game, char c)
 	return (NULL);
 }
 
-void	populate_window(t_game *game)
+void	update_window(t_game *game)
 {
 	int i;
 	int	j;
@@ -84,24 +84,139 @@ void	populate_window(t_game *game)
 		while (j < game->nb_cols)
 		{
 			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, ft_chose_img(game, game->map[i][j]), j * 50, i * 50);
+			if (game->map[i][j] == 'P')
+			{
+				game->player_pos[0] = j;
+				game->player_pos[1] = i;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
+
+
+/*
+** dealing with Events
+*/
+
+//int	mlx_mouse_hook (void *win_ptr, int (*funct_ptr)(), void *param);
+//int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
+//int	mlx_expose_hook (void *win_ptr, int (*funct_ptr)(), void *param);
+
+//int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
+//int	mlx_loop (void *mlx_ptr);
+
+/***  hook funct are called as follow :
+**
+**   expose_hook(void *param);
+**   key_hook(int keycode, void *param);
+**   mouse_hook(int button, int x,int y, void *param);
+**   loop_hook(void *param);
+**
+*/
+
+
+
+void handle_key_exit(t_game *game)
+{
+	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	exit(1);
+}
+
+
+/*
+	int i =0;
+	int j = 0;
+	while (i < game->nb_rows)
+	{
+		j = 0;
+		while (j < game->nb_cols)
+		{
+			printf("%c",game->map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("\n\n");
+
+*/
+
+
+void	handle_key_up(t_game *game)
+{
+	if (game->player_pos[1] <= 0)
+		return ;
+	if (game->map[game->player_pos[1] - 1][game->player_pos[0]] == '1')
+		return ;
+	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
+	game->player_pos[1]--;
+	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
+	update_window(game);
+}
+
+void	handle_key_down(t_game *game)
+{
+	if (game->player_pos[1] >= game->nb_rows -1)
+		return ;
+	if (game->map[game->player_pos[1] + 1][game->player_pos[0]] == '1')
+		return ;
+	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
+	game->player_pos[1]++;
+	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
+	update_window(game);
+}
+
+void	handle_key_left(t_game *game)
+{
+	if (game->player_pos[0] <= 0)
+		return ;
+	if (game->map[game->player_pos[1]][game->player_pos[0] - 1] == '1')
+		return ;
+	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
+	game->player_pos[0]--;
+	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
+	update_window(game);
+}
+
+void	handle_key_right(t_game *game)
+{
+	if (game->player_pos[0] >= game->nb_cols -1)
+		return ;
+	if (game->map[game->player_pos[1]][game->player_pos[0] + 1] == '1')
+		return ;
+	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
+	game->player_pos[0]++;
+	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
+	update_window(game);
+}
+
+int	handle_keys(int key_symb, t_game *game)
+{	
+	if (key_symb == KEY_UP)
+		handle_key_up(game);
+	if (key_symb == KEY_DOWN)
+		handle_key_down(game);
+	if (key_symb == KEY_LEFT)
+		handle_key_left(game);
+	if (key_symb == KEY_RIGHT)
+		handle_key_right(game);
+	if (key_symb == KEY_ESC)
+		handle_key_exit(game);
+	return 0;	
+}
+
+
 void	use_minilibx(t_game *game)
 {
 	init_mlx(game);
-	populate_window(game);
-	
-	
+	update_window(game);
+	mlx_key_hook(game->win_ptr, &handle_keys, game);
 
-	//printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_player, 50, 50));
-	//printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_wall, 0, 0));
 
 	mlx_loop(game->mlx_ptr);
-
 	//clear_program(mlx_ptr, win_ptr);
 }
 
@@ -111,7 +226,7 @@ int	main(void)
 	char    str_map[100000];
 
     //1) read file abd parse/store map data into array of strings
-   game.map = ft_split(ft_read_map(str_map), '\n');
+   	game.map = ft_split(ft_read_map(str_map), '\n');
     
     game.nb_rows = 0;
     while (game.map[game.nb_rows])
@@ -128,14 +243,12 @@ int	main(void)
 		ft_putstr_fd("Error\n", 1);
 		return (0);
 	}
-	//3) Récupération des images pour notre carte avec la minilibx
-		//A) Initialisation du programme
-		use_minilibx(&game);
-		//B) Faire des boucles pour 
 
-	//4) Reproduire la map récupérée avec gnl et l'ouvrir dans une fenêtre avec la minilibx
-		//https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx
-	//5) Règles pour faire bouger le perso et rendre dynamique l'affichage de la map
+	use_minilibx(&game);
+
+	//printf("player_pos x=%d, y=%d", game->player_pos[0], game->player_pos[1]);
+
+	//4) Règles pour faire bouger le perso et rendre dynamique l'affichage de la map
 		//use event handler and hooks https://aurelienbrabant.fr/blog/managing-events-with-the-minilibx
 
 

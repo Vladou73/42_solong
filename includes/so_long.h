@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/23 11:37:17 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:28:20 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@
 # include <sys/stat.h>
 #include <fcntl.h>
 
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 300
-
 typedef struct s_game
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	
 	void	*img_player;
 	void	*img_wall;
 	void	*img_bckg;
@@ -42,17 +40,20 @@ typedef struct s_game
 	int		nb_cols;
 
 	char	**map;
+	int		player_pos[2];
 	
 }	t_game;
 
-typedef struct s_rect /* The x and y coordinates of the rect corresponds to its upper left corner. */
-{
-	int	x;
-	int	y;
-	int width;
-	int height;
-	int color;
-}	t_rect;
+//******************** DEFINE KEYS ********************//
+
+#  define KEY_ESC	53
+#  define KEY_UP	13
+#  define KEY_RIGHT 2
+#  define KEY_DOWN 	1
+#  define KEY_LEFT 	0
+//#  define RED_CROSS	17
+
+
 
 
 
