@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/23 16:05:23 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:04:38 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,48 +27,6 @@
 
 //Votre programme doit prendre en paramètre un fichier de carte se terminant par l’extension .ber.
 
-void	clear_program(t_game *game) {
-
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	exit(1);
-	//mlx_clear_window(mlx_ptr, win_ptr);
-	//mlx_destroy_display(mlx_ptr);
-	//free(mlx_ptr);
-}
-
-
-//À chaque mouvement, le compte total de mouvement doit être affiché dans le
-//shell.
-
-
-void	init_mlx(t_game *game)
-{
-	game->mlx_ptr = mlx_init();
-	if (game->mlx_ptr == NULL)
-		return ;
-	game->win_ptr = mlx_new_window(game->mlx_ptr, 50 * game->nb_cols, 50 * game->nb_rows, "my window");
-	if (game->win_ptr == NULL)
-	{
-		free(game->win_ptr);
-		return ;
-	}
-
-	//void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
-	game->img_player = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/player.xpm", &(game->img_width), &(game->img_height));
-	game->img_wall = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/wall.xpm", &(game->img_width), &(game->img_height));
-	game->img_coll = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/collectible.xpm", &(game->img_width), &(game->img_height));
-	game->img_bckg = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/background.xpm", &(game->img_width), &(game->img_height));
-	game->img_exit = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/exit.xpm", &(game->img_width), &(game->img_height));
-}
-
-
-//Le but du joueur est de collecter tous les items présents sur la carte, puis de
-//s’échapper en empruntant le chemin le plus court possible.
-void	ft_check_exit(t_game *game)
-{
-	if (game->exit_pos[0] == game->player_pos[0] && game->exit_pos[1] == game->player_pos[1])
-		clear_program(game);			
-}
 
 
 void	*ft_chose_img(t_game *game, char c)
@@ -92,8 +50,6 @@ void	update_window(t_game *game)
 	int	j;
 	
 	i = 0;
-	
-	//int mlx_put_image_to_window ( void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y );
 	while (i < game->nb_rows)
 	{
 		j = 0;
@@ -116,68 +72,11 @@ void	update_window(t_game *game)
 	}
 }
 
-
 void	ft_update_put_moves(t_game *game)
 {
 	game->count_moves++;
 	ft_putnbr_fd(game->count_moves, 1);
 	ft_putstr_fd("\n", 1);
-}
-
-void	handle_key_up(t_game *game)
-{
-	if (game->player_pos[1] <= 0)
-		return ;
-	if (game->map[game->player_pos[1] - 1][game->player_pos[0]] == '1')
-		return ;
-	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
-	game->player_pos[1]--;
-	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
-	update_window(game);
-	ft_update_put_moves(game);
-	ft_check_exit(game);
-}
-
-void	handle_key_down(t_game *game)
-{
-	if (game->player_pos[1] >= game->nb_rows -1)
-		return ;
-	if (game->map[game->player_pos[1] + 1][game->player_pos[0]] == '1')
-		return ;
-	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
-	game->player_pos[1]++;
-	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
-	update_window(game);
-	ft_update_put_moves(game);
-	ft_check_exit(game);
-}
-
-void	handle_key_left(t_game *game)
-{
-	if (game->player_pos[0] <= 0)
-		return ;
-	if (game->map[game->player_pos[1]][game->player_pos[0] - 1] == '1')
-		return ;
-	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
-	game->player_pos[0]--;
-	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
-	update_window(game);
-	ft_update_put_moves(game);
-	ft_check_exit(game);
-}
-
-void	handle_key_right(t_game *game)
-{
-	if (game->player_pos[0] >= game->nb_cols -1)
-		return ;
-	if (game->map[game->player_pos[1]][game->player_pos[0] + 1] == '1')
-		return ;
-	game->map[game->player_pos[1]][game->player_pos[0]] = '0';
-	game->player_pos[0]++;
-	game->map[game->player_pos[1]][game->player_pos[0]] = 'P';
-	update_window(game);
-	ft_update_put_moves(game);
-	ft_check_exit(game);
 }
 
 int	handle_keys(int key_symb, t_game *game)
@@ -193,21 +92,6 @@ int	handle_keys(int key_symb, t_game *game)
 	if (key_symb == KEY_ESC || key_symb == RED_CROSS)
 		clear_program(game);
 	return 0;
-}
-
-
-
-
-
-void	use_minilibx(t_game *game)
-{
-	init_mlx(game);
-	update_window(game);
-	mlx_key_hook(game->win_ptr, &handle_keys, game);
-
-
-	mlx_loop(game->mlx_ptr);
-	//clear_program(mlx_ptr, win_ptr);
 }
 
 int	main(void)
@@ -235,7 +119,9 @@ int	main(void)
 	}
 
 	game.count_moves = 0;
-
+	game.count_collectibles = 0;
+	game.collected_collectibles = 0;
+	
 	use_minilibx(&game);
 
 	//printf("player_pos x=%d, y=%d", game->player_pos[0], game->player_pos[1]);
