@@ -9,7 +9,7 @@ char	*ft_read_map(char *str_map)
     int     fd;
 
     //1) open map & read file
-    fd = open("./map.txt", O_RDONLY);
+    fd = open("./map.ber", O_RDONLY);
     len_file = (int)read(fd, str_map, 100000);
 
     str_map[len_file] = 0;

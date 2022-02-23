@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/23 15:28:20 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:55:52 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_game
 
 	char	**map;
 	int		player_pos[2];
+	int		exit_pos[2];
 	
+	int		count_moves;
 }	t_game;
 
 //******************** DEFINE KEYS ********************//
@@ -51,7 +53,7 @@ typedef struct s_game
 #  define KEY_RIGHT 2
 #  define KEY_DOWN 	1
 #  define KEY_LEFT 	0
-//#  define RED_CROSS	17
+#  define RED_CROSS	17
 
 
 
