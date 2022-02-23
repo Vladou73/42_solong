@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/22 17:58:27 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:56:35 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,71 @@ void	clear_program(void *mlx_ptr, void *win_ptr) {
 	free(mlx_ptr);
 }
 
-void	use_minilibx(t_game *game)
+
+void	init_mlx(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
 		return ;
-	game->win_ptr = mlx_new_window(game->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+	game->win_ptr = mlx_new_window(game->mlx_ptr, 50 * game->nb_cols, 50 * game->nb_rows, "my window");
 	if (game->win_ptr == NULL)
 	{
 		free(game->win_ptr);
 		return ;
 	}
-	
+
 	//void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
-	//int mlx_put_image_to_window ( void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y );
 	game->img_player = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/player.xpm", &(game->img_width), &(game->img_height));
-	printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_player, 50, 50));
-
-
 	game->img_wall = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/wall.xpm", &(game->img_width), &(game->img_height));
-	printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_wall, 0, 0));
+	game->img_coll = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/collectible.xpm", &(game->img_width), &(game->img_height));
+	game->img_bckg = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/background.xpm", &(game->img_width), &(game->img_height));
+	game->img_exit = mlx_xpm_file_to_image(game->mlx_ptr, "./assets/exit.xpm", &(game->img_width), &(game->img_height));
+}
+
+void	*ft_chose_img(t_game *game, char c)
+{
+	if (c == 'P')
+		return (game->img_player);
+	else if (c == 'C')
+		return (game->img_coll);
+	else if (c == '0')
+		return (game->img_bckg);
+	else if (c == '1')
+		return (game->img_wall);
+	else if (c == 'E')
+		return (game->img_exit);
+	return (NULL);
+}
+
+void	populate_window(t_game *game)
+{
+	int i;
+	int	j;
+	
+	i = 0;
+	
+	//int mlx_put_image_to_window ( void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y );
+	while (i < game->nb_rows)
+	{
+		j = 0;
+		while (j < game->nb_cols)
+		{
+			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, ft_chose_img(game, game->map[i][j]), j * 50, i * 50);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	use_minilibx(t_game *game)
+{
+	init_mlx(game);
+	populate_window(game);
+	
+	
+
+	//printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_player, 50, 50));
+	//printf("success=%d\n",mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_wall, 0, 0));
 
 	mlx_loop(game->mlx_ptr);
 
@@ -64,21 +109,20 @@ int	main(void)
 {
 	t_game	game;
 	char    str_map[100000];
-	char    **map;
 
     //1) read file abd parse/store map data into array of strings
-    map = ft_split(ft_read_map(str_map), '\n');
+   game.map = ft_split(ft_read_map(str_map), '\n');
     
     game.nb_rows = 0;
-    while (map[game.nb_rows])
+    while (game.map[game.nb_rows])
 	{
-		printf("%s\n", map[game.nb_rows]);
+		printf("%s\n", game.map[game.nb_rows]);
 		game.nb_rows++;
 	}
-	game.nb_cols = (int)ft_strlen(map[0]);
+	game.nb_cols = (int)ft_strlen(game.map[0]);
     
 	//2) Vérifications que la map soit ok
-	if (!ft_map_is_ok(map, game.nb_rows, game.nb_cols))
+	if (!ft_map_is_ok(game.map, game.nb_rows, game.nb_cols))
 	{
 		//Cas d'erreurs : le programme doit quitter proprement et retourner "Error\n" suivi d’un message d’erreur explicite.
 		ft_putstr_fd("Error\n", 1);
@@ -88,6 +132,7 @@ int	main(void)
 		//A) Initialisation du programme
 		use_minilibx(&game);
 		//B) Faire des boucles pour 
+
 	//4) Reproduire la map récupérée avec gnl et l'ouvrir dans une fenêtre avec la minilibx
 		//https://aurelienbrabant.fr/blog/pixel-drawing-with-the-minilibx
 	//5) Règles pour faire bouger le perso et rendre dynamique l'affichage de la map

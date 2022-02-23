@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/22 17:46:26 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:37:17 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@ typedef struct s_game
 	void	*win_ptr;
 	void	*img_player;
 	void	*img_wall;
-	void	*img_background;
+	void	*img_bckg;
 	void	*img_exit;
-	void	*img_collectible;
+	void	*img_coll;
 	
 	int		img_width;
 	int		img_height;
 
 	int		nb_rows;
 	int		nb_cols;
+
+	char	**map;
 	
 }	t_game;
 
