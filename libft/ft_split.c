@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:11:59 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 10:49:30 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 20:22:56 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,25 @@
 // Le tableau doit être terminé par NULL.
 
 #include "libft.h"
+
+static void	exit_on_error(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (array)
+	{
+		while (array[i])
+		{
+			free(array[i]);
+			array[i] = NULL;
+			i++;
+		}
+		free(array);
+	}
+	ft_putstr_fd("Error\n", 1);
+	exit(1);
+}
 
 static char	**allocate_newarray_memory(char const *s, char c)
 {
@@ -55,7 +74,7 @@ static char	**ft_process(char **newarray, char const *s, char c)
 		{
 			newarray[i] = malloc(sizeof(char) * (j + 1));
 			if (!newarray[i])
-				return (NULL);
+				exit_on_error(newarray);
 			ft_strlcpy(newarray[i], s, j + 1);
 			i++;
 		}

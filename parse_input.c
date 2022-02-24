@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:02:21 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 17:42:31 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 20:23:47 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ char	*ft_read_map(char *str_map, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	len_file = (int)read(fd, str_map, 100000);
+	if (len_file == -1)
+	{
+		ft_putstr_fd("Error\n", 1);
+		exit(1);
+	}
 	str_map[len_file] = 0;
 	close(fd);
 	return (str_map);
