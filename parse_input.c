@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:02:21 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 12:14:45 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:49:58 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_read_map(char *str_map)
 	int	len_file;
 	int	fd;
 
-	fd = open("./maps/map.ber", O_RDONLY);
+	fd = open("./maps/mapwall2.ber", O_RDONLY);
 	len_file = (int)read(fd, str_map, 100000);
 	str_map[len_file] = 0;
 	close(fd);
