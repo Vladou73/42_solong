@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 12:13:16 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:25:37 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	handle_key_right(t_game *game);
 
 //******************** HANDLE EXIT ********************//
 int		ft_no_more_collectibles(t_game *game);
-void	clear_program(t_game *game);
+int		clear_program(t_game *game);
 void	ft_check_exit(t_game *game);
 
 //******************** USE MINILIBIX ********************//

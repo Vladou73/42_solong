@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:03:55 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 10:52:36 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:25:20 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_no_more_collectibles(t_game *game)
 	return (1);
 }
 
-void	clear_program(t_game *game)
+int	clear_program(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	exit(1);

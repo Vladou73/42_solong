@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:00:01 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 11:01:50 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:27:03 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_keys(int key_symb, t_game *game)
 		handle_key_left(game);
 	if (key_symb == KEY_RIGHT)
 		handle_key_right(game);
-	if (key_symb == KEY_ESC || key_symb == RED_CROSS)
+	if (key_symb == KEY_ESC)
 		clear_program(game);
 	return (0);
 }
@@ -32,6 +32,7 @@ void	use_minilibx(t_game *game)
 	init_mlx(game);
 	update_window(game);
 	mlx_key_hook(game->win_ptr, &handle_keys, game);
+	mlx_hook(game->win_ptr, RED_CROSS, 0L, &clear_program, game);
 	mlx_loop(game->mlx_ptr);
 }
 
