@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:00:01 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 12:27:03 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:56:29 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ void	init_mlx(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
-		return ;
+	{
+		ft_putstr_fd("Error\n", 1);
+		clear_program(game);
+	}
 	game->win_ptr = mlx_new_window(game->mlx_ptr,
-			50 * game->nb_cols, 50 * game->nb_rows, "my window");
+			50 * game->nb_cols, 50 * game->nb_rows, "my game");
 	if (game->win_ptr == NULL)
 	{
-		free(game->win_ptr);
-		return ;
+		ft_putstr_fd("Error\n", 1);
+		clear_program(game);
 	}
 	game->img_player = mlx_xpm_file_to_image(game->mlx_ptr,
 			"./assets/player.xpm", &(game->img_width), &(game->img_height));

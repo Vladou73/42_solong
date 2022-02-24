@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 17:46:38 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:49:59 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ int	ft_check_args(int argc, char **argv)
 	return (1);
 }
 
-//Cas d'erreurs : le programme doit quitter proprement
-//et retourner "Error\n" suivi d’un message d’erreur explicite.
-//6) Gérer l'arrêt du programme, les leaks
-	//1st : mlx_destroy_display
-	//2nd : free
 int	main(int argc, char **argv)
 {
 	t_game	game;

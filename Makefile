@@ -6,7 +6,7 @@
 #    By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 17:55:57 by vnafissi          #+#    #+#              #
-#    Updated: 2022/02/24 13:03:18 by vnafissi         ###   ########.fr        #
+#    Updated: 2022/02/24 18:47:11 by vnafissi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 #VARIABLE=VALUE
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -Wconversion -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -Wconversion -fsanitize=address -fsanitize=undefined
 SYSTEM = $(shell uname)
 
 #Varying flags & compilation for different systems
