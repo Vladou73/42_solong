@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 12:00:55 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:46:38 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,37 @@ void	ft_update_put_moves(t_game *game)
 	ft_putstr_fd("\n", 1);
 }
 
+int	ft_check_args(int argc, char **argv)
+{
+	int	len;
+
+	if (argc != 2)
+		return (0);
+	len = (int)ft_strlen(argv[1]);
+	if (len < 4)
+		return (0);
+	if (argv[1][len - 1] != 'r' || argv[1][len - 2] != 'e'
+		|| argv[1][len - 3] != 'b' || argv[1][len - 4] != '.')
+		return (0);
+	return (1);
+}
+
 //Cas d'erreurs : le programme doit quitter proprement
 //et retourner "Error\n" suivi d’un message d’erreur explicite.
 //6) Gérer l'arrêt du programme, les leaks
 	//1st : mlx_destroy_display
 	//2nd : free
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game	game;
 	char	str_map[100000];
 
-	game.map = ft_split(ft_read_map(str_map), '\n');
+	if (!ft_check_args(argc, argv))
+	{
+		ft_putstr_fd("Error\n", 1);
+		return (1);
+	}
+	game.map = ft_split(ft_read_map(str_map, argv[1]), '\n');
 	game.nb_rows = 0;
 	while (game.map[game.nb_rows])
 		game.nb_rows++;
@@ -90,5 +110,6 @@ int	main(void)
 	game.count_collectibles = 0;
 	game.collected_collectibles = 0;
 	use_minilibx(&game);
+	system("leaks so_long");
 	return (0);
 }

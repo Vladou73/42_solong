@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:31 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 12:25:37 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:45:48 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "../mlx_linux/mlx.h"
 # include <stdio.h>
 # include <unistd.h>
-
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -54,13 +53,14 @@ typedef struct s_game
 
 //******************** PARSING MAP FILE ********************//
 int		ft_map_is_ok(char **map, int nb_rows, int nb_cols);
-char	*ft_read_map(char *str_map);
+char	*ft_read_map(char *str_map, char *filename);
 int		ft_count_elements(char **map, int nb_rows);
 int		ft_map_is_rectangle(char **map, int nb_cols);
 int		ft_map_is_ok(char **map, int nb_rows, int nb_cols);
 int		ft_is_wall(char c);
 int		ft_char_is_ok(char c);
 int		ft_map_chars_are_ok(char **map, int nb_rows, int nb_cols);
+int		ft_check_args(int argc, char **argv);
 
 //******************** HANDLE MOVES ********************//
 void	handle_key_up(t_game *game);
