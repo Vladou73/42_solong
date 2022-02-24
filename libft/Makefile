@@ -6,7 +6,7 @@
 #    By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 13:32:13 by vnafissi          #+#    #+#              #
-#    Updated: 2022/02/23 16:08:41 by vnafissi         ###   ########.fr        #
+#    Updated: 2022/02/24 12:10:46 by vnafissi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,7 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = libft.a
 
 SRCS = ft_bzero.c ft_calloc.c ft_strlen.c \
-ft_putstr_fd.c \
-ft_strncmp.c ft_atol.c ft_isint.c ft_atoi.c ft_isdigit.c \
-ft_split.c ft_strchr.c ft_strlcpy.c ft_putnbr_fd.c ft_putchar_fd.c
+ft_putstr_fd.c ft_split.c ft_strchr.c ft_strlcpy.c ft_putnbr_fd.c ft_putchar_fd.c
 
 #${SRCS:.c=.o} means, take the variable value ${SRCS},
 # which is a string composed of words separated by spaces,
