@@ -6,7 +6,7 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:03:55 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 18:59:16 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 19:16:48 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	clear_program(t_game *game)
 	}
 	if (game->mlx_ptr)
 		free(game->mlx_ptr);
-	exit(1);
+	exit(0);
 }
 
 void	ft_check_exit(t_game *game)

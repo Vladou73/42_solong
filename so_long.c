@@ -6,14 +6,11 @@
 /*   By: vnafissi <vnafissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:38:12 by vnafissi          #+#    #+#             */
-/*   Updated: 2022/02/24 18:49:59 by vnafissi         ###   ########.fr       */
+/*   Updated: 2022/02/24 19:19:33 by vnafissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/so_long.h"
-//Fermeture/quitter le programme proprement
-	//Appuyer sur la touche ESC doit fermer la fenêtre
-	//Cliquer sur la croix en haut de la fenêtre
 
 void	*ft_chose_img(t_game *game, char c)
 {
